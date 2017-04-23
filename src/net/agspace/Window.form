@@ -140,8 +140,9 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <label value="&lt;"/>
-              <text value="&lt;"/>
+              <icon value="resources/toTengwar.png"/>
+              <label value=""/>
+              <text value=""/>
               <toolTipText value="Translate to tengwar"/>
             </properties>
           </component>
@@ -150,8 +151,9 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <label value="&gt;"/>
-              <text value="&gt;"/>
+              <icon value="resources/toEnglish.png"/>
+              <label value=""/>
+              <text value=""/>
               <toolTipText value="Translate to english"/>
             </properties>
           </component>
@@ -171,8 +173,9 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <label value="Clear"/>
-              <text value="Clear"/>
+              <icon value="resources/clear.png"/>
+              <label value=""/>
+              <text value=""/>
             </properties>
           </component>
         </children>
