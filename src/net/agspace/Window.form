@@ -140,9 +140,8 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="resources/toTengwar.png"/>
-              <label value=""/>
-              <text value=""/>
+              <label value="&lt;"/>
+              <text value="&lt;"/>
               <toolTipText value="Translate to tengwar"/>
             </properties>
           </component>
@@ -151,9 +150,8 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="resources/toEnglish.png"/>
-              <label value=""/>
-              <text value=""/>
+              <label value="&gt;"/>
+              <text value="&gt;"/>
               <toolTipText value="Translate to english"/>
             </properties>
           </component>
@@ -162,8 +160,10 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <hideActionText value="false"/>
               <label value="Live"/>
               <text value="Live"/>
+              <toolTipText value="Enable translate-as-you-type"/>
             </properties>
           </component>
           <component id="59b28" class="javax.swing.JButton" binding="clearButton" custom-create="true">
@@ -171,9 +171,8 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <icon value="resources/clear.png"/>
-              <label value=""/>
-              <text value=""/>
+              <label value="Clear"/>
+              <text value="Clear"/>
             </properties>
           </component>
         </children>

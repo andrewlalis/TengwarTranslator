@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: net.agspace.Main
+Application-Name: TengwarTypewriter
+Created-By: Andrew Lalis
+Application-Description: User interface to translate english to tengwar.
