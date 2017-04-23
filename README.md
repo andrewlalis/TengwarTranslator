@@ -15,3 +15,11 @@ Since Tengwar is inherently a phonetic script, converting english to Tengwar wou
 
 ![Tengwar](https://puu.sh/vtyfi/598ad704e1.png "Tengwar Characters")
 
+### To-Do List
+
+* Import text files, and translate them automatically.
+* Save tengwar files as rich-text files with tengwar font.
+* Implement scanning for double-consonants and use of double-bar.
+* Implement s-curls.
+* Find a way to display the PDF manual in the UI.
+
