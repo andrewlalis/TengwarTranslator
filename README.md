@@ -17,6 +17,7 @@ Since Tengwar is inherently a phonetic script, converting english to Tengwar wou
 
 ### To-Do List
 
+* R placed after vowel must be checked to determine if it should be a vowel or consonant R.
 * Implement scanning for double-consonants and use of double-bar.
 * Implement s-curls.
 * Find a way to display the PDF manual in the UI.
