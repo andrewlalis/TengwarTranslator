@@ -333,33 +333,6 @@ public class Translator {
     }
 
     /**
-     * Returns the type of character that a tengwar char is.
-     * @param tengwarChar a tengwar char.
-     * @return enum type describing the character's purpose.
-     */
-    private static CHAR_TYPE getCharType(char tengwarChar){
-        if (compoundChars.containsValue(tengwarChar)) {
-            return CHAR_TYPE.COMPOUND;
-        } else if (consonantChars.containsValue(tengwarChar)){
-            return CHAR_TYPE.CONSONANT;
-        }   else if (numberChars.containsValue(tengwarChar)){
-            return CHAR_TYPE.NUMBER;
-        } else if (punctuationChars.containsValue(tengwarChar)){
-            return CHAR_TYPE.PUNCTUATION;
-        } else if (alternateChars.containsValue(tengwarChar)){
-            return CHAR_TYPE.ALTERNATE;
-        }else if (sCurls.contains(tengwarChar)){
-            return CHAR_TYPE.S_CURL;
-        } else if (carriers.contains(tengwarChar)){
-            return CHAR_TYPE.CARRIER;
-        } else if (bars.contains(tengwarChar)){
-            return CHAR_TYPE.BAR;
-        } else {
-            return CHAR_TYPE.VOWEL;
-        }
-    }
-
-    /**
      * Gives the properly sized vowel for a particular tengwar character.
      * Uses indices from the charSizes map to find the proper character.
      * @param tengwarChar tengwar char to be checked.
