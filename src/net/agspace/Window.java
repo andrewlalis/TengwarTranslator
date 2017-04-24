@@ -104,6 +104,12 @@ public class Window {
                 onSaveClicked();
             }
         });
+        //Translate tengwar to english.
+        toEnglishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
     }
 
     private void createUIComponents() {

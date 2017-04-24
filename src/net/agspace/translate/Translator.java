@@ -87,7 +87,7 @@ public class Translator {
     private static final char U_4 = 'M';
 
     //Carriers.
-    private static final char CARRIER_LONG = '̃';
+    private static final char CARRIER_LONG = '~';
     private static final char CARRIER_SHORT = '`';
 
     //Numbers.
@@ -120,7 +120,7 @@ public class Translator {
 
     //Doubles Bars
     private static final char BAR_SHORT_TOP = '[';
-    private static final char BAR_SHORT_BOTTOM = '’';
+    private static final char BAR_SHORT_BOTTOM = '\'';
     private static final char BAR_LONG_TOP = '{';
     private static final char BAR_LONG_BOTTOM = '"';
 
@@ -276,6 +276,37 @@ public class Translator {
         charSizes.put(CARRIER_SHORT, 4);
     }
 
+    //Sets bar preferences, 0 for long top, 1 for long bottom, 2 for short top, 3 for short bottom.
+    private static final Map<Character, Integer> barSizes = new HashMap<>();
+    static {
+        barSizes.put(B, 0);
+        barSizes.put(C, 2);
+        barSizes.put(D, 1);
+        barSizes.put(F, 2);
+        barSizes.put(G, 1);
+        barSizes.put(H, 1);
+        barSizes.put(J, 0);
+        barSizes.put(K, 2);
+        barSizes.put(L, 1);
+        barSizes.put(M, 0);
+        barSizes.put(N, 0);
+        barSizes.put(P, 3);
+        barSizes.put(Q, 3);
+        barSizes.put(R, 2);
+        barSizes.put(S, 1);
+        barSizes.put(T, 3);
+        barSizes.put(V, 0);
+        barSizes.put(W, 2);
+        barSizes.put(X, 0);
+        barSizes.put(Y, 2);
+        barSizes.put(Z, 1);
+        barSizes.put(S_ALT, 0);
+        barSizes.put(Z_ALT, 1);
+        barSizes.put(W_ALT, 2);
+        barSizes.put(R_ALT, 2);
+        barSizes.put(Y_ALT, 2);
+    }
+
     //List of s-curls.
     private static final List<Character> sCurls = new ArrayList<>();
     static{
@@ -295,10 +326,10 @@ public class Translator {
     private static final List<Character> bars = new ArrayList<>();
     static {
 
-        bars.add(BAR_SHORT_BOTTOM);
-        bars.add(BAR_SHORT_TOP);
-        bars.add(BAR_LONG_BOTTOM);
         bars.add(BAR_LONG_TOP);
+        bars.add(BAR_LONG_BOTTOM);
+        bars.add(BAR_SHORT_TOP);
+        bars.add(BAR_SHORT_BOTTOM);
     }
 
     /**
@@ -395,26 +426,35 @@ public class Translator {
                 if (consonantChars.containsKey(nextChar)){
                     //If the next character can have a vowel placed on it, then go here.
                     //Temporary storage for the character that will be added before the vowel.
-                    char tengwarCharToBeAdded = 0;
+                    char tengwarCharToBeAdded;
+                    boolean needsBar = false;
+                    char secondNextChar = 0;
                     //Check if the next char is a compound first.
                     try{
-                        char secondNextChar = input.charAt(i+2);
-                        if (compoundChars.containsKey(""+nextChar+secondNextChar)){
-                            tengwarCharToBeAdded = compoundChars.get(""+nextChar+secondNextChar);
-                            i++;
-                        }
+                        secondNextChar = input.charAt(i+2);
                     } catch (IndexOutOfBoundsException e){
                         //Do nothing. second next char doesn't exist.
                     }
-                    //Not a compound, so now check for alternates.
-                    if (tengwarCharToBeAdded == 0 && alternateChars.containsKey(nextChar)){
+                    if (compoundChars.containsKey(""+nextChar+secondNextChar)) {
+                        tengwarCharToBeAdded = compoundChars.get("" + nextChar + secondNextChar);
+                        i++;
+                    } else if (alternateChars.containsKey(nextChar)){
+                        //Not a compound, so now check for alternates.
                         tengwarCharToBeAdded = alternateChars.get(nextChar);
-                    } else if (tengwarCharToBeAdded == 0) {
+                    } else {
                     //Finally, add a literal consonant.
                         tengwarCharToBeAdded = consonantChars.get(nextChar);
                     }
+                    //Check to see if a bar should be added, and the next character skipped.
+                    if (nextChar == secondNextChar){
+                        //Bar should be added.
+                        needsBar = true;
+                        i++;
+                    }
                     result.append(tengwarCharToBeAdded);
                     result.append(getAppropriateVowel(tengwarCharToBeAdded, currentChar));
+                    if (needsBar)
+                        result.append(bars.get(barSizes.get(tengwarCharToBeAdded)));
                     i++;
                 } else {
                     //The next character is not able to have a vowel placed on it, so use a carrier.
@@ -450,12 +490,18 @@ public class Translator {
                     result.append(R_ALT);
                 } else {
                     //Character can be literally translated from numbers or consonants or punctuation.
-                    if (consonantChars.containsKey(currentChar))
+                    if (consonantChars.containsKey(currentChar)) {
                         result.append(consonantChars.get(currentChar));
-                    else if (punctuationChars.containsKey(currentChar))
+                        if (currentChar == nextChar) {
+                            //double consonant found, add a bar.
+                            result.append(bars.get(barSizes.get(consonantChars.get(currentChar))));
+                            i++;
+                        }
+                    } else if (punctuationChars.containsKey(currentChar)) {
                         result.append(punctuationChars.get(currentChar));
-                    else if (numberChars.containsKey(currentChar))
+                    } else if (numberChars.containsKey(currentChar)) {
                         result.append(numberChars.get(currentChar));
+                    }
                 }
             }
         }
