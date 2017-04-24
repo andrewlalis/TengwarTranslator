@@ -83,17 +83,7 @@ public class Window {
         importButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Desktop.isDesktopSupported()){
-                    if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=lsJLLEwUYZM"));
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        } catch (URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
+                onImportClicked();
             }
         });
     }
@@ -133,6 +123,23 @@ public class Window {
     private void onEnglishTextChanged(){
         if (isLive)
             tengwarTextArea.setText(Translator.translateToTengwar(inputTextArea.getText()));
+    }
+
+    /**
+     * What to do if the user clicks the 'import' button.
+     */
+    private void onImportClicked(){
+        if (Desktop.isDesktopSupported()){
+            if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=lsJLLEwUYZM"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
     }
 
 }

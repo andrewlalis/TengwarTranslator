@@ -49,7 +49,7 @@
               <component id="952a" class="javax.swing.JTextArea" binding="tengwarTextArea" custom-create="true">
                 <constraints/>
                 <properties>
-                  <font name="Tengwar Annatar" size="16" style="2"/>
+                  <font name="Tengwar Annatar" size="16" style="0"/>
                   <lineWrap value="true"/>
                   <wrapStyleWord value="true"/>
                 </properties>
