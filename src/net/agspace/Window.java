@@ -5,16 +5,26 @@ import net.agspace.translate.Translator;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Andrew's Computer on 22-Apr-17.
  */
 public class Window {
+
+    public static final List<String> OPEN_FILE_EXTENSIONS = new ArrayList<String>();
+
+    static {
+         OPEN_FILE_EXTENSIONS.add("txt");
+    }
 
     private JPanel mainPanel;
     private JPanel tengwarPanel;
@@ -31,6 +41,7 @@ public class Window {
     private JCheckBox liveCheckBox;
     private JButton clearButton;
     private JButton importButton;
+    private JButton saveButton;
 
     private boolean isLive = false;
 
@@ -86,6 +97,13 @@ public class Window {
                 onImportClicked();
             }
         });
+        //Save text to a file.
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onSaveClicked();
+            }
+        });
     }
 
     private void createUIComponents() {
@@ -114,6 +132,7 @@ public class Window {
         this.clearButton = new JButton();
         this.importButton = new JButton();
         this.inputTextArea.requestFocus();
+        this.saveButton = new JButton();
     }
 
     public JPanel getMainPanel(){
@@ -129,15 +148,53 @@ public class Window {
      * What to do if the user clicks the 'import' button.
      */
     private void onImportClicked(){
-        if (Desktop.isDesktopSupported()){
-            if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
-                try {
-                    Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=lsJLLEwUYZM"));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (URISyntaxException e1) {
-                    e1.printStackTrace();
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.documents"));
+        fileChooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory())
+                    return true;
+                String extension = Utils.getExtension(f);
+                if (extension != null)
+                    return OPEN_FILE_EXTENSIONS.contains(extension.toLowerCase());
+                else
+                    return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Plain text files.";
+            }
+        });
+        int result = fileChooser.showOpenDialog(this.mainPanel);
+        if (result == JFileChooser.APPROVE_OPTION){
+            try (BufferedReader br = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))){
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+                while (line != null){
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
                 }
+                inputTextArea.setText(sb.toString());
+                tengwarTextArea.setText(Translator.translateToTengwar(inputTextArea.getText()));
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * What to do when the user wants to save their document.
+     */
+    private void onSaveClicked(){
+        JFileChooser fileChooser = new JFileChooser(System.getProperty("user.documents"));
+        int result = fileChooser.showSaveDialog(this.mainPanel);
+        if (result == JFileChooser.APPROVE_OPTION){
+            try (PrintStream ps = new PrintStream(fileChooser.getSelectedFile())){
+                ps.println(tengwarTextArea.getText());
+            } catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
