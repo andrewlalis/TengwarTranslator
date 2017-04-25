@@ -414,6 +414,9 @@ public class Translator {
                     } else if (alternateChars.containsKey(nextChar)){
                         //Not a compound, so now check for alternates.
                         tengwarCharToBeAdded = alternateChars.get(nextChar);
+                    } else if (nextChar == 'r' && isVowel(secondNextChar)){
+                        //Special case if there is an r next, with a vowel after it.
+                        tengwarCharToBeAdded = R_ALT;
                     } else {
                     //Finally, add a literal consonant.
                         tengwarCharToBeAdded = consonantChars.get(nextChar);
