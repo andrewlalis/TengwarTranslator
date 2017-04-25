@@ -6,7 +6,7 @@
       <xy x="20" y="20" width="786" height="461"/>
     </constraints>
     <properties>
-      <preferredSize width="640" height="480"/>
+      <preferredSize width="720" height="480"/>
     </properties>
     <border type="none"/>
     <children>
@@ -18,7 +18,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="9f3fe" binding="tengwarPanelTop" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="9f3fe" binding="tengwarPanelTop" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -30,32 +30,13 @@
             <children>
               <component id="3d5ee" class="javax.swing.JLabel" binding="tengwarPanelLabel">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Tengwar Annatar" size="18" style="0"/>
                   <text value="1b$y6D"/>
                 </properties>
               </component>
-              <grid id="f21a7" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="48468" class="javax.swing.JButton" binding="saveButton" custom-create="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Save"/>
-                      <toolTipText value="Saves the tengwar text to a file."/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
             </children>
           </grid>
           <scrollpane id="ad3c8">
@@ -88,7 +69,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="f5158" binding="inputPanelTop" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="f5158" binding="inputPanelTop" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -106,25 +87,6 @@
                   <text value="English"/>
                 </properties>
               </component>
-              <grid id="a3b48" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="1682d" class="javax.swing.JButton" binding="importButton" custom-create="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Import"/>
-                      <toolTipText value="Import text from a file to be translated."/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
             </children>
           </grid>
           <scrollpane id="36b2e">
@@ -146,7 +108,7 @@
           </scrollpane>
         </children>
       </grid>
-      <grid id="5da94" binding="translateButtonPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="5da94" binding="translateButtonPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="30" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -156,7 +118,7 @@
         <children>
           <component id="8f5c7" class="javax.swing.JButton" binding="toTengwarButton" custom-create="true">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <icon value="resources/toTengwar.png"/>
@@ -167,7 +129,7 @@
           </component>
           <component id="1097" class="javax.swing.JButton" binding="toEnglishButton" custom-create="true">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <icon value="resources/toEnglish.png"/>
@@ -176,20 +138,9 @@
               <toolTipText value="Translate to english"/>
             </properties>
           </component>
-          <component id="1ba7d" class="javax.swing.JCheckBox" binding="liveCheckBox" custom-create="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <hideActionText value="false"/>
-              <label value="Live"/>
-              <text value="Live"/>
-              <toolTipText value="Enable translate-as-you-type"/>
-            </properties>
-          </component>
           <component id="59b28" class="javax.swing.JButton" binding="clearButton" custom-create="true">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <icon value="resources/clear.png"/>
