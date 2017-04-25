@@ -188,10 +188,10 @@ public class Window {
      */
     public void onEnglishModeAboutClicked(){
         if (Desktop.isDesktopSupported()){
-            try {
-                Desktop.getDesktop().open(new File(this.getClass().getClassLoader().getResource("resources/EnglishOnetoOneTengwarV2-1.pdf").getFile()));
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            try{
+                Desktop.getDesktop().browse(new URI("https://github.com/andrewlalis/TengwarTranslator/blob/master/src/resources/EnglishOneToOneTengwarV2-1.pdf"));
+            } catch (URISyntaxException | IOException e){
+                e.printStackTrace();
             }
         }
     }

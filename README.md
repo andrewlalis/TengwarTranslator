@@ -18,5 +18,4 @@ Since Tengwar is inherently a phonetic script, converting english to Tengwar wou
 ### To-Do List
 
 * Implement s-curls.
-* Find a way to display the PDF manual in the UI.
-
+* Add more text editing options, like color, italics, bold, indentation, and so on...
