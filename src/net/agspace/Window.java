@@ -11,14 +11,13 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Window {
 
     //List of files that can be imported.
-    public static final List<String> OPEN_FILE_EXTENSIONS = new ArrayList<>();
+    private static final List<String> OPEN_FILE_EXTENSIONS = new ArrayList<>();
 
     static {
          OPEN_FILE_EXTENSIONS.add("txt");
@@ -52,29 +51,16 @@ public class Window {
         }
 
         //Explicit translation from english to tengwar.
-        toTengwarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tengwarTextArea.setText(Translator.translateToTengwar(inputTextArea.getText()));
-            }
-        });
+        toTengwarButton.addActionListener(e -> tengwarTextArea.setText(Translator.translateToTengwar(inputTextArea.getText())));
 
         //Clear both text areas.
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tengwarTextArea.setText(null);
-                inputTextArea.setText(null);
-            }
+        clearButton.addActionListener(e -> {
+            tengwarTextArea.setText(null);
+            inputTextArea.setText(null);
         });
 
         //Translate tengwar to english.
-        toEnglishButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                inputTextArea.setText(Translator.translateToEnglish(tengwarTextArea.getText()));
-            }
-        });
+        toEnglishButton.addActionListener(e -> inputTextArea.setText(Translator.translateToEnglish(tengwarTextArea.getText())));
     }
 
     private void createUIComponents() {
@@ -97,6 +83,22 @@ public class Window {
             }
         });
         this.tengwarTextArea = new JTextArea();
+        tengwarTextArea.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                onTengwarTextChanged();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                onTengwarTextChanged();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                onTengwarTextChanged();
+            }
+        });
         this.toTengwarButton = new JButton();
         this.toEnglishButton = new JButton();
         this.clearButton = new JButton();
@@ -152,10 +154,7 @@ public class Window {
                 if (f.isDirectory())
                     return true;
                 String extension = Utils.getExtension(f);
-                if (extension != null)
-                    return OPEN_FILE_EXTENSIONS.contains(extension.toLowerCase());
-                else
-                    return false;
+                return extension != null && OPEN_FILE_EXTENSIONS.contains(extension.toLowerCase());
             }
 
             @Override

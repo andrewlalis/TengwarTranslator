@@ -571,7 +571,6 @@ public class Translator {
                 //Do nothing, this is fine.
             }
             String currentLiteral = getEnglishLiteral(currentChar);
-            System.out.println("At: "+i+" Literal: "+currentLiteral);
             //Check if the current character is a literal translation.
             if (currentLiteral != null){
                 //Check if the next character is a vowel that should be placed before a character.
