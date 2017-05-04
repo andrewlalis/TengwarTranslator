@@ -15,6 +15,8 @@ Since Tengwar is inherently a phonetic script, converting english to Tengwar wou
 
 ![Tengwar](https://puu.sh/vtyfi/598ad704e1.png "Tengwar Characters")
 
+To translate from Tengwar back to English is much simpler, but because Tengwar characters do use capitalization, the resulting string of text will be in only lower-case letters.
+
 ### To-Do List
 
 * Implement s-curls.

@@ -1,27 +1,11 @@
 package net.agspace.translate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
 * Created by Andrew's Computer on 23-Apr-17.
 */
 public class Translator {
-
-    private enum CHAR_TYPE {
-        CONSONANT,
-        COMPOUND,
-        ALTERNATE,
-        VOWEL,
-        NUMBER,
-        CARRIER,
-        PUNCTUATION,
-        BAR,
-        S_CURL,
-        UNKNOWN,
-    }
 
     //Consonant variables.
     private static final char B = 'w';
@@ -184,7 +168,6 @@ public class Translator {
         alternateChars.put('s', S_ALT);
         alternateChars.put('z', Z_ALT);
         alternateChars.put('w', W_ALT);
-        //alternateChars.put('r', R_ALT); R alt is used if followed by a vowel.
         alternateChars.put('y', Y_ALT);
     }
 
@@ -373,6 +356,92 @@ public class Translator {
     }
 
     /**
+     * Determines if a tengwar character is a vowel.
+     * @param c tengwar char to check.
+     * @return true if vowel, false if not.
+     */
+    private static boolean isVowelTengwar(char c){
+        for (Character[] ch : vowelChars.values()){
+            for (char cha : ch){
+                if (cha == c)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the english vowel representation of a tengwar vowel.
+     * @param tengwarVowel The tengwar vowel to decipher.
+     * @return english vowel char.
+     */
+    private static char getEnglishVowel(char tengwarVowel){
+        if (!isVowelTengwar(tengwarVowel)){
+            return 0;
+        }
+        for (Character[] ch : vowelChars.values()){
+            for (char cha : ch){
+                if (cha == tengwarVowel) {
+                    return getKeyByValue(vowelChars, ch);
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Determines if a tengwar char is a silent E.
+     * @param tengwarChar the tengwar char to evaluate.
+     * @return True if it is a silent E, false otherwise.
+     */
+    private static boolean isSilentE(char tengwarChar){
+        return tengwarChar == E_UNDER_1
+                || tengwarChar == E_UNDER_2
+                || tengwarChar == E_UNDER_3
+                || tengwarChar == E_UNDER_4
+                || tengwarChar == E_LAMBE;
+    }
+
+    /**
+     * Returns a character or string that is a literal translation from tengwar.
+     * @param tengwarChar the tengwar char to translate.
+     * @return english representation of the tengwar.
+     */
+    private static String getEnglishLiteral(char tengwarChar){
+        if (consonantChars.containsValue(tengwarChar)){
+            return getKeyByValue(consonantChars, tengwarChar).toString();
+        } else if (compoundChars.containsValue(tengwarChar)){
+            return getKeyByValue(compoundChars, tengwarChar);
+        } else if (alternateChars.containsValue(tengwarChar)) {
+            return getKeyByValue(alternateChars, tengwarChar).toString();
+        } else if (tengwarChar == R_ALT){
+            return "r";
+        } else if (numberChars.containsValue(tengwarChar)){
+            return getKeyByValue(numberChars, tengwarChar).toString();
+        } else if (punctuationChars.containsValue(tengwarChar)){
+            return getKeyByValue(punctuationChars, tengwarChar).toString();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the key for a specified value in a 1 to 1 map.
+     * @param map The 1 to 1 map to use.
+     * @param value Value to return the key of.
+     * @param <T> Key type of the map.
+     * @param <E> Value type of the map.
+     * @return Key associated with value.
+     */
+    private static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+        for (Map.Entry<T, E> entry : map.entrySet()) {
+            if (Objects.equals(value, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Translate an english string to tengwar.
      * @param englishString english string.
      * @return tengwar string.
@@ -380,19 +449,14 @@ public class Translator {
     public static String translateToTengwar(String englishString){
         StringBuilder result = new StringBuilder(englishString.length());
         String input = englishString.toLowerCase().trim();
-
         for (int i = 0; i < input.length(); i++){
             //Attempt to get previous, current, and next char.
             char currentChar = input.charAt(i);
-            char previousChar = 0;
             char nextChar = 0;
-            try{
-                previousChar = input.charAt(i-1);
-            } catch (IndexOutOfBoundsException e){
-            }
             try{
                 nextChar = input.charAt(i+1);
             } catch (IndexOutOfBoundsException e){
+                //Do nothing, since this may happen.
             }
             //Test if the current char is a vowel.
             if (isVowel(currentChar)){
@@ -429,6 +493,7 @@ public class Translator {
                     }
                     result.append(tengwarCharToBeAdded);
                     result.append(getAppropriateVowel(tengwarCharToBeAdded, currentChar));
+                    //Bar gets added after the vowel.
                     if (needsBar)
                         result.append(bars.get(barSizes.get(tengwarCharToBeAdded)));
                     i++;
@@ -480,6 +545,62 @@ public class Translator {
                     }
                 }
             }
+        }
+        return result.toString();
+    }
+
+    /**
+     * Translates a tengwar string to english.
+     * @param tengwarString tengwar string.
+     * @return english string.
+     */
+    public static String translateToEnglish(String tengwarString){
+        StringBuilder result = new StringBuilder(tengwarString.length()+tengwarString.length()/2);
+        for (int i = 0; i < tengwarString.length(); i++){
+            char currentChar = tengwarString.charAt(i);
+            char nextChar = 0;
+            char secondNextChar = 0;
+            try{
+                nextChar = tengwarString.charAt(i+1);
+            } catch (IndexOutOfBoundsException e){
+                //Do nothing, this is fine.
+            }
+            try{
+                secondNextChar = tengwarString.charAt(i+2);
+            } catch (IndexOutOfBoundsException e){
+                //Do nothing, this is fine.
+            }
+            String currentLiteral = getEnglishLiteral(currentChar);
+            //Check if the current character is a literal translation.
+            if (currentLiteral != null){
+                //Check if the next character is a vowel that should be placed before a character.
+                if (isVowelTengwar(nextChar) && !isSilentE(nextChar)){
+                    result.append(getEnglishVowel(nextChar));
+                    result.append(currentLiteral);
+                    i++;
+                    //Check for a double-bar, and then add whatever the current char is.
+                    if (bars.contains(secondNextChar)){
+                        result.append(currentLiteral);
+                        i++;
+                    }
+                } else if (bars.contains(nextChar)){
+                        result.append(currentLiteral);
+                        i++;
+                } else {
+                    //Just append the current literal, no skipping.
+                    result.append(currentLiteral);
+                }
+            } else {
+                //Current character is not a literal translation, so it is an E_UNDER, or carrier.
+                if (carriers.contains(currentChar)){
+                    //If carrier, append the following vowel.
+                    result.append(getEnglishVowel(nextChar));
+                    i++;
+                } else if (isSilentE(currentChar)) {
+                    result.append('e');
+                }
+            }
+
         }
         return result.toString();
     }
