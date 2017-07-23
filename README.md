@@ -1,5 +1,5 @@
 # TengwarTranslator
-![icon.png](/src/resources/icon.png "TengwarTranslator Icon")
+![icon.png](/icon.png "TengwarTranslator Icon")
 
 ### About the Program
 
@@ -11,7 +11,7 @@ Java's Built-in *Swing* library is used to provide the cross-platform user inter
 
 ### Translation
 
-Since Tengwar is inherently a phonetic script, converting english to Tengwar would be almost impossible, and would require extremely advanced software to detect how individual words are pronounced. To avoid this, I created my [own Tengwar mode](/src/resources/EnglishOneToOneTengwarV2-1.pdf "English to Tengwar") which can be used to transcribe to and from English in a way that no information is lost in the transcription, as would be the case with normal Tengwar. I do this by including characters to represent every English letter, while still obeying the rules concerning placement of vowel diacritics and compound characters. The characters are shown below.
+Since Tengwar is inherently a phonetic script, converting english to Tengwar would be almost impossible, and would require extremely advanced software to detect how individual words are pronounced. To avoid this, I created my [own Tengwar mode](/EnglishOneToOneTengwarV2-1.pdf "English to Tengwar") which can be used to transcribe to and from English in a way that no information is lost in the transcription, as would be the case with normal Tengwar. I do this by including characters to represent every English letter, while still obeying the rules concerning placement of vowel diacritics and compound characters. The characters are shown below.
 
 ![Tengwar](https://puu.sh/vtyfi/598ad704e1.png "Tengwar Characters")
 
