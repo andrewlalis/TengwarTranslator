@@ -1,5 +1,5 @@
 # TengwarTranslator
-![icon.png](/icon.png "TengwarTranslator Icon")
+![icon.png](/src/main/resources/icon.png "TengwarTranslator Icon")
 
 ### About the Program
 
